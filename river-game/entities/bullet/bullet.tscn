@@ -1,0 +1,32 @@
+[gd_scene load_steps=6 format=3 uid="uid://ksp6cabhk4gv"]
+
+[ext_resource type="Texture2D" uid="uid://c1m8crkacxblb" path="res://assets/bullet.png" id="1_78c8h"]
+[ext_resource type="Script" uid="uid://b4wh8g7pijfln" path="res://components/move_component.gd" id="2_5h0jh"]
+[ext_resource type="Resource" uid="uid://dh7hf2j3wfl37" path="res://entities/bullet/bullet_move_stats.tres" id="3_25cl0"]
+[ext_resource type="Script" uid="uid://d1bmwrfhakbgt" path="res://components/visible_on_screen_remove_component.gd" id="4_25cl0"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2kyv7"]
+radius = 4.0
+height = 18.0
+
+[node name="Bullet" type="Area2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_78c8h")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_2kyv7")
+
+[node name="MoveComponent" type="Node" parent="." node_paths=PackedStringArray("actor")]
+script = ExtResource("2_5h0jh")
+actor = NodePath("..")
+velocity = Vector2(0, -1)
+move_stats = ExtResource("3_25cl0")
+metadata/_custom_type_script = "uid://b4wh8g7pijfln"
+
+[node name="VisibleOnScreenRemoveComponent" type="VisibleOnScreenNotifier2D" parent="." node_paths=PackedStringArray("actor")]
+rect = Rect2(-5, -10, 10, 20)
+script = ExtResource("4_25cl0")
+actor = NodePath("..")
+
+[connection signal="screen_exited" from="VisibleOnScreenRemoveComponent" to="VisibleOnScreenRemoveComponent" method="_on_screen_exited"]

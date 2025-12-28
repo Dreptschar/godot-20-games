@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="RaceData" load_steps=2 format=3 uid="uid://cbv0lbobv22bv"]
+
+[ext_resource type="Script" uid="uid://ic2f1d70xpxj" path="res://scripts/resources/RaceData.gd" id="1_1cxhp"]
+
+[resource]
+script = ExtResource("1_1cxhp")
+id = &"human"
+name = "human"
+description = "A normal Humanoid"
+tags = Array[StringName]([&"humanoid"])
+metadata/_custom_type_script = "uid://ic2f1d70xpxj"

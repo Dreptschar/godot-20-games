@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://c8d8gvwej5qqg"]
+
+[ext_resource type="Script" uid="uid://b4wh8g7pijfln" path="res://components/move_component.gd" id="1_sajso"]
+[ext_resource type="Resource" uid="uid://ch1iocinq34ww" path="res://entities/player/player_move_stats.tres" id="2_evkaa"]
+
+[node name="MoveComponent" type="Node" node_paths=PackedStringArray("actor")]
+script = ExtResource("1_sajso")
+actor = NodePath("")
+move_stats = ExtResource("2_evkaa")

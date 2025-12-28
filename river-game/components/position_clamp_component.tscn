@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cr4obbpswjfaw"]
+
+[ext_resource type="Script" uid="uid://brii6d2iexhdr" path="res://components/position_clamp_component.gd" id="1_hu5nn"]
+
+[node name="PositionClampComponent" type="Node"]
+script = ExtResource("1_hu5nn")

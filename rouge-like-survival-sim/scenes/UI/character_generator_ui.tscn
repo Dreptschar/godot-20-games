@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://bpvpedotq22qa"]
+
+[ext_resource type="Script" uid="uid://c1rd2trt2lcdv" path="res://scenes/UI/character_generator.gd" id="1_xemvu"]
+
+[node name="CharacterGeneratorUi" type="Node2D"]
+
+[node name="CharacterGenerator" type="Node" parent="."]
+script = ExtResource("1_xemvu")

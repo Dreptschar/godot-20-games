@@ -1,0 +1,85 @@
+[gd_scene load_steps=12 format=3 uid="uid://lf8w1b1vedjt"]
+
+[ext_resource type="PackedScene" uid="uid://c8d8gvwej5qqg" path="res://components/move_component.tscn" id="2_bls4j"]
+[ext_resource type="Texture2D" uid="uid://b0p2jiv8f1h8g" path="res://assets/jet.png" id="2_onrkg"]
+[ext_resource type="PackedScene" uid="uid://c5g033gnjdouo" path="res://components/input_component.tscn" id="3_fkugw"]
+[ext_resource type="PackedScene" uid="uid://cr4obbpswjfaw" path="res://components/position_clamp_component.tscn" id="4_8fjmc"]
+[ext_resource type="PackedScene" uid="uid://dofo6v04geqkt" path="res://components/spawner_component.tscn" id="5_fkugw"]
+[ext_resource type="PackedScene" uid="uid://ksp6cabhk4gv" path="res://entities/bullet/bullet.tscn" id="6_8fjmc"]
+
+[sub_resource type="Gradient" id="Gradient_8fjmc"]
+colors = PackedColorArray(0.81960785, 0, 0, 1, 1, 1, 0.11764706, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_qiwj3"]
+gradient = SubResource("Gradient_8fjmc")
+
+[sub_resource type="Curve" id="Curve_8fjmc"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.9360902, 0.54749256), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_qiwj3"]
+curve = SubResource("Curve_8fjmc")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_26q78"]
+lifetime_randomness = 0.06
+particle_flag_disable_z = true
+emission_shape = 6
+emission_ring_axis = Vector3(0, 2, 1)
+emission_ring_height = 0.0
+emission_ring_radius = 3.0
+emission_ring_inner_radius = 10.0
+emission_ring_cone_angle = 0.0
+angle_min = -542.2
+angle_max = 504.00003
+gravity = Vector3(0, 1000, 0)
+scale_max = 1.5
+scale_curve = SubResource("CurveTexture_qiwj3")
+color = Color(1, 0.4862745, 0.15294118, 1)
+color_ramp = SubResource("GradientTexture1D_qiwj3")
+hue_variation_min = -2.2351742e-08
+hue_variation_max = -2.2351742e-08
+
+[node name="Player" type="CharacterBody2D"]
+scale = Vector2(0.8, 0.8)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_onrkg")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+position = Vector2(0, -2)
+polygon = PackedVector2Array(0, -66, -7, -59, -11, -33, -27, -30, -27, -15, -66, 41, -66, 46, -22, 46, -22, 58, 25, 58, 25, 47, 71, 47, 30, -15, 27, -32, 11, -34, 7, -61)
+
+[node name="MoveComponent" parent="." node_paths=PackedStringArray("actor") instance=ExtResource("2_bls4j")]
+actor = NodePath("..")
+
+[node name="InputComponent" parent="." node_paths=PackedStringArray("move_component", "spawn_component") instance=ExtResource("3_fkugw")]
+move_component = NodePath("../MoveComponent")
+spawn_component = NodePath("../SpawnerComponent")
+
+[node name="PositionClampComponent" parent="." node_paths=PackedStringArray("actor") instance=ExtResource("4_8fjmc")]
+actor = NodePath("..")
+margin = 50.0
+
+[node name="SpawnerComponent" parent="." node_paths=PackedStringArray("spawner") instance=ExtResource("5_fkugw")]
+spawningScene = ExtResource("6_8fjmc")
+spawner = [NodePath("../GunMarkerLeft"), NodePath("../GunMarkerRight")]
+
+[node name="GunMarkerLeft" type="Marker2D" parent="."]
+position = Vector2(-21.249996, -26.249994)
+scale = Vector2(0.99999994, 0.99999994)
+
+[node name="GunMarkerRight" type="Marker2D" parent="."]
+position = Vector2(21.249996, -26.249998)
+scale = Vector2(0.99999994, 0.99999994)
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+position = Vector2(-12.5, 57.5)
+amount = 200
+lifetime = 0.2
+process_material = SubResource("ParticleProcessMaterial_26q78")
+
+[node name="GPUParticles2D2" type="GPUParticles2D" parent="."]
+position = Vector2(14.999998, 57.5)
+amount = 200
+lifetime = 0.6
+process_material = SubResource("ParticleProcessMaterial_26q78")
